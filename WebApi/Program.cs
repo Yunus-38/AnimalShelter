@@ -16,10 +16,21 @@ namespace WebApi
             var containerBuilder = new ContainerBuilder();
             containerBuilder.RegisterModule(new AutofacBusinessModule());
             var container = containerBuilder.Build();
+            builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>(builder =>
+    {
+        builder.RegisterModule(new AutofacBusinessModule());
+    });
 
             builder.Services.AddControllers().AddControllersAsServices();
 
+            var services = builder.Services;
+            services.AddEndpointsApiExplorer();
+            services.AddSwaggerGen();
+
             var app = builder.Build();
+
+            
 
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
@@ -35,7 +46,7 @@ namespace WebApi
             app.MapControllers();
 
             // Set the Autofac container as the application's service provider.
-            app.UseAutofacServiceProviderFactory(container);
+            //app.UseAutofacServiceProviderFactory(container);
 
             app.Run();
         }
