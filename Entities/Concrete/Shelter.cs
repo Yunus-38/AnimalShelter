@@ -1,12 +1,13 @@
-﻿using System;
+﻿using Core.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Entities
+namespace Entities.Concrete
 {
-    public class Shelter
+    public class Shelter : IEntity
     {
         public int ShelterId { get; set; }
         public int CityId { get; set; }
