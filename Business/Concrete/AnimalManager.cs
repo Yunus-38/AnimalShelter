@@ -3,6 +3,7 @@ using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,6 +86,22 @@ namespace Business.Concrete
         public IResult Adopt(int animalId, int adopterId)
         {
             throw new NotImplementedException();
+        }
+
+        public IDataResult<AnimalDetailsDto> GetAnimalDetailsById(int animalId)
+        {
+            var animalDetails = _animalDal.GetAnimalDetails(a => a.AnimalId == animalId);
+            if (animalDetails == null)
+            {
+                return new ErrorDataResult<AnimalDetailsDto>(Messages.AnimalNotFound);
+            }
+            return new SuccessDataResult<AnimalDetailsDto>(animalDetails, Messages.GetAnimalSuccess);
+        }
+
+        public IDataResult<List<GetAdoptedAnimalsDto>> GetAdoptedAnimals()
+        {
+            var animals = _animalDal.GetAdoptedAnimals();
+            return new SuccessDataResult<List<GetAdoptedAnimalsDto>>(animals, Messages.GetAnimalListSuccess);
         }
     }
 

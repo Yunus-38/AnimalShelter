@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,6 +18,8 @@ namespace Business.Abstract
         IResult Update(int animalId, Animal animal);
         IDataResult<List<Animal>> GetAnimalsByAdopterId(int adopterId);
         IResult Adopt(int animalId, int adopterId);
+        IDataResult<AnimalDetailsDto> GetAnimalDetailsById(int animalId);
+        IDataResult<List<GetAdoptedAnimalsDto>> GetAdoptedAnimals();
     }
 
 

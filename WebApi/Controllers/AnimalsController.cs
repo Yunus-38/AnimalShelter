@@ -70,6 +70,27 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
+        [HttpPost("getanimaldetails/{id}")]
+        public IActionResult GetAnimalDetails(int id)
+        {
+            var result = _animalService.GetAnimalDetailsById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getadoptedanimals")]
+        public IActionResult GetAdoptedAnimals()
+        {
+            var result = _animalService.GetAdoptedAnimals();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 
 }

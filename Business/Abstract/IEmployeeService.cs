@@ -1,5 +1,6 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
+using Entities.Dtos;
 
 namespace Business.Abstract
 {
@@ -10,7 +11,7 @@ namespace Business.Abstract
         IResult Add(Employee employee);
         IResult Delete(int employeeId);
         IResult Update(int employeeId, Employee employee);
+        IDataResult<EmployeeDetailsDto> GetEmployeeDetailsById(int employeeId);
+        IDataResult<List<EmployeePositionDto>> GetAllEmployeesWithPositions(int departmentId);
     }
-
-
 }

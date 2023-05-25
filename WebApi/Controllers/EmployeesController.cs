@@ -70,6 +70,28 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getemployeedetails/{id}")]
+        public IActionResult GetEmployeeDetails(int id)
+        {
+            var result = _employeeService.GetEmployeeDetailsById(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getemployeesbydepartment/{id}")]
+        public IActionResult GetEmployeesByDepartment(int id)
+        {
+            var result = _employeeService.GetAllEmployeesWithPositions(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 
 }

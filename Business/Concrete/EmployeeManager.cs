@@ -3,6 +3,7 @@ using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
+using Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,6 +45,12 @@ namespace Business.Concrete
             return new SuccessDataResult<List<Employee>>(employees, Messages.GetEmployeeListSuccess);
         }
 
+        public IDataResult<List<EmployeePositionDto>> GetAllEmployeesWithPositions(int departmentId)
+        {
+            var employees = _employeeDal.GetAllEmployeePositions(e => e.DepartmentId == departmentId);
+            return new SuccessDataResult<List<EmployeePositionDto>>(employees, Messages.GetEmployeeListSuccess);
+        }
+
         public IDataResult<Employee> GetById(int id)
         {
             var employee = _employeeDal.Get(e => e.EmployeeId == id);
@@ -53,6 +60,16 @@ namespace Business.Concrete
             }
 
             return new SuccessDataResult<Employee>(employee, Messages.GetEmployeeSuccess);
+        }
+
+        public IDataResult<EmployeeDetailsDto> GetEmployeeDetailsById(int employeeId)
+        {
+            var employeeDetails = _employeeDal.GetEmployeeDetails(e => e.EmployeeId == employeeId);
+            if (employeeDetails == null)
+            {
+                return new ErrorDataResult<EmployeeDetailsDto>(Messages.EmployeeNotFound);
+            }
+            return new SuccessDataResult<EmployeeDetailsDto>(employeeDetails, Messages.GetEmployeeSuccess);
         }
 
         public IResult Update(int id, Employee employee)
