@@ -17,5 +17,6 @@ namespace Entities.Dtos
         public string ShelterName { get; set; }
         public string GenusName { get; set; }
         public string SpeciesName { get; set; }
+        public string IsAdopted { get; set; }
     }
 }

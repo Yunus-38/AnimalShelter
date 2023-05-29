@@ -27,5 +27,12 @@ namespace DataAccess.Concrete.EntityFramework
         public DbSet<Shelter> Shelters { get; set; }
         public DbSet<Species> Species { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            builder.Entity<Animal>().ToTable(tb => tb.HasTrigger("TriggerName"));
+            builder.Entity<Employee>().ToTable(tb => tb.HasTrigger("TriggerName"));
+            builder.Entity<Shelter>().ToTable(tb => tb.HasTrigger("TriggerName"));
+        }
+
     }
 }

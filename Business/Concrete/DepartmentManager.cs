@@ -63,25 +63,8 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.DepartmentNotFound);
             }
 
-            Department newDepartment = new Department();
-            var propertyInfo = typeof(Department).GetProperties();
 
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(department);
-                if (propertyValue is null || propertyValue.Equals(0) || propertyValue.Equals((double)0) || propertyValue.Equals(new DateTime()))
-                {
-                    property.SetValue(newDepartment, property.GetValue(currentDepartment));
-                }
-                else
-                {
-                    property.SetValue(newDepartment, property.GetValue(department));
-                }
-            }
-
-            newDepartment.DepartmentId = currentDepartment.DepartmentId; // Preserve the ID
-
-            _departmentDal.Update(newDepartment);
+            _departmentDal.Update(department);
             return new SuccessResult(Messages.UpdateDepartmentSuccess);
         }
     }

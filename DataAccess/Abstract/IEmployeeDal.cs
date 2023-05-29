@@ -9,6 +9,7 @@ namespace DataAccess.Abstract
     {
         public EmployeeDetailsDto GetEmployeeDetails(Expression<Func<EmployeeDetailsDto, bool>> filter);
         public List<EmployeePositionDto> GetAllEmployeePositions(Expression<Func<EmployeePositionDto, bool>> filter);
+        public List<GetEmployeesByShelterDto> GetEmployeesByShelter(Expression<Func<GetEmployeesByShelterDto, bool>> filter);
     }
 
 

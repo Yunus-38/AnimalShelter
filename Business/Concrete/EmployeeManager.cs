@@ -72,6 +72,12 @@ namespace Business.Concrete
             return new SuccessDataResult<EmployeeDetailsDto>(employeeDetails, Messages.GetEmployeeSuccess);
         }
 
+        public IDataResult<List<GetEmployeesByShelterDto>> GetEmployeesByShelter(int shelterId)
+        {
+            var employees = _employeeDal.GetEmployeesByShelter(e => e.ShelterId == shelterId);
+            return new SuccessDataResult<List<GetEmployeesByShelterDto>>(employees, Messages.GetEmployeeListSuccess);
+        }
+
         public IResult Update(int id, Employee employee)
         {
             var currentEmployee = _employeeDal.Get(e => e.EmployeeId == id);
@@ -80,25 +86,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.EmployeeNotFound);
             }
 
-            Employee newEmployee = new Employee();
-            var propertyInfo = typeof(Employee).GetProperties();
-
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(employee);
-                if (propertyValue is null || propertyValue.Equals(0) || propertyValue.Equals((double)0) || propertyValue.Equals(new DateTime()))
-                {
-                    property.SetValue(newEmployee, property.GetValue(currentEmployee));
-                }
-                else
-                {
-                    property.SetValue(newEmployee, property.GetValue(employee));
-                }
-            }
-
-            newEmployee.EmployeeId = currentEmployee.EmployeeId; // Preserve the ID
-
-            _employeeDal.Update(newEmployee);
+            _employeeDal.Update(employee);
             return new SuccessResult(Messages.UpdateEmployeeSuccess);
         }
     }

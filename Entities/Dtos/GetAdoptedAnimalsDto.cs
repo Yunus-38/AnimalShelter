@@ -23,5 +23,6 @@ namespace Entities.Dtos
         public string CityName { get; set; }
         public string ShelterName { get; set; }
         public string ShelterAddress { get; set; }
+        public int AdopterId { get; set; }
     }
 }

@@ -12,8 +12,9 @@ namespace DataAccess.Abstract
 {
     public interface IAnimalDal : IEntityRepository<Animal>
     {
-        public List<GetAdoptedAnimalsDto> GetAdoptedAnimals();
+        public List<GetAdoptedAnimalsDto> GetAdoptedAnimals(Expression<Func<GetAdoptedAnimalsDto, bool>> filter = null);
         public AnimalDetailsDto GetAnimalDetails(Expression<Func<AnimalDetailsDto, bool>> filter);
+        public List<AnimalDetailsDto> GetAllAnimalDetails(int id);
     }
 
 }

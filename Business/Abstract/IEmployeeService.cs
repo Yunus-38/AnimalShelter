@@ -1,6 +1,7 @@
 ﻿using Core.Utilities.Results;
 using Entities.Concrete;
 using Entities.Dtos;
+using System.Linq.Expressions;
 
 namespace Business.Abstract
 {
@@ -13,5 +14,6 @@ namespace Business.Abstract
         IResult Update(int employeeId, Employee employee);
         IDataResult<EmployeeDetailsDto> GetEmployeeDetailsById(int employeeId);
         IDataResult<List<EmployeePositionDto>> GetAllEmployeesWithPositions(int departmentId);
+        public IDataResult<List<GetEmployeesByShelterDto>> GetEmployeesByShelter(int shelterId);
     }
 }

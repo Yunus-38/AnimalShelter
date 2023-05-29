@@ -19,7 +19,9 @@ namespace Business.Abstract
         IDataResult<List<Animal>> GetAnimalsByAdopterId(int adopterId);
         IResult Adopt(int animalId, int adopterId);
         IDataResult<AnimalDetailsDto> GetAnimalDetailsById(int animalId);
-        IDataResult<List<GetAdoptedAnimalsDto>> GetAdoptedAnimals();
+        IDataResult<List<GetAdoptedAnimalsDto>> GetAllAdoptedAnimals();
+        IDataResult<List<GetAdoptedAnimalsDto>> GetAdoptedAnimalsByAdopterId(int adopterId);
+        public IDataResult<List<AnimalDetailsDto>> GetAnimalsByShelterId(int id);
     }
 
 

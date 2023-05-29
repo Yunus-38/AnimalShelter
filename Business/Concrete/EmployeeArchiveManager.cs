@@ -63,25 +63,9 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.EmployeeArchiveNotFound);
             }
 
-            EmployeeArchive newEmployeeArchive = new EmployeeArchive();
-            var propertyInfo = typeof(EmployeeArchive).GetProperties();
+           
 
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(employeeArchive);
-                if (propertyValue is null || propertyValue.Equals(0) || propertyValue.Equals((double)0) || propertyValue.Equals(new DateTime()))
-                {
-                    property.SetValue(newEmployeeArchive, property.GetValue(currentEmployeeArchive));
-                }
-                else
-                {
-                    property.SetValue(newEmployeeArchive, property.GetValue(employeeArchive));
-                }
-            }
-
-            newEmployeeArchive.EmployeeArchiveId = currentEmployeeArchive.EmployeeArchiveId; // Preserve the ID
-
-            _employeeArchiveDal.Update(newEmployeeArchive);
+            _employeeArchiveDal.Update(employeeArchive);
             return new SuccessResult(Messages.UpdateEmployeeArchiveSuccess);
         }
     }

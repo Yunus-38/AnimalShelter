@@ -57,22 +57,9 @@ namespace Business.Concrete
             if (currentCity == null)
                 return new ErrorResult(Messages.CityNotFound);
 
-            var propertyInfo = typeof(City).GetProperties();
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(city);
-                bool isNullOrEmpty = propertyValue == null || (propertyValue is string && string.IsNullOrEmpty((string)propertyValue));
-                if (isNullOrEmpty)
-                {
-                    property.SetValue(currentCity, property.GetValue(currentCity));
-                }
-                else
-                {
-                    property.SetValue(currentCity, propertyValue);
-                }
-            }
+            
 
-            _cityDal.Update(currentCity);
+            _cityDal.Update(city);
             return new SuccessResult(Messages.UpdateCitySuccess);
         }
     }

@@ -81,10 +81,32 @@ namespace WebApi.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getadoptedanimals")]
-        public IActionResult GetAdoptedAnimals()
+        [HttpGet("getalladoptedanimals")]
+        public IActionResult GetAllAdoptedAnimals()
         {
-            var result = _animalService.GetAdoptedAnimals();
+            var result = _animalService.GetAllAdoptedAnimals();
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getadoptedanimalsbyadopter/{id}")]
+        public IActionResult GetAdoptedAnimalsByAdopter(int id)
+        {
+            var result = _animalService.GetAdoptedAnimalsByAdopterId(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
+
+        [HttpGet("getallanimalsbyshelter/{id}")]
+        public IActionResult GetAllAnimalsByShelter(int id)
+        {
+            var result = _animalService.GetAnimalsByShelterId(id);
             if (result.Success)
             {
                 return Ok(result);

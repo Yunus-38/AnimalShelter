@@ -68,25 +68,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.ShelterNotFound);
             }
 
-            Shelter newShelter = new Shelter();
-            var propertyInfo = typeof(Shelter).GetProperties();
-
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(shelter);
-                if (propertyValue is null || propertyValue.Equals(0) || propertyValue.Equals((double)0) || propertyValue.Equals(new DateTime()))
-                {
-                    property.SetValue(newShelter, property.GetValue(currentShelter));
-                }
-                else
-                {
-                    property.SetValue(newShelter, property.GetValue(shelter));
-                }
-            }
-
-            newShelter.ShelterId = currentShelter.ShelterId; // Preserve the ID
-
-            _shelterDal.Update(newShelter);
+            _shelterDal.Update(shelter);
             return new SuccessResult(Messages.UpdateShelterSuccess);
         }
     }

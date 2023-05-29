@@ -58,22 +58,7 @@ namespace Business.Concrete
             if (currentAnimal == null)
                 return new ErrorResult(Messages.AnimalNotFound);
 
-            var propertyInfo = typeof(Animal).GetProperties();
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(animal);
-                bool isNullOrEmpty = propertyValue == null || (propertyValue is string && string.IsNullOrEmpty((string)propertyValue));
-                if (isNullOrEmpty)
-                {
-                    property.SetValue(currentAnimal, property.GetValue(currentAnimal));
-                }
-                else
-                {
-                    property.SetValue(currentAnimal, propertyValue);
-                }
-            }
-
-            _animalDal.Update(currentAnimal);
+            _animalDal.Update(animal);
             return new SuccessResult(Messages.UpdateAnimalSuccess);
         }
 
@@ -98,10 +83,22 @@ namespace Business.Concrete
             return new SuccessDataResult<AnimalDetailsDto>(animalDetails, Messages.GetAnimalSuccess);
         }
 
-        public IDataResult<List<GetAdoptedAnimalsDto>> GetAdoptedAnimals()
+        public IDataResult<List<GetAdoptedAnimalsDto>> GetAllAdoptedAnimals()
         {
             var animals = _animalDal.GetAdoptedAnimals();
             return new SuccessDataResult<List<GetAdoptedAnimalsDto>>(animals, Messages.GetAnimalListSuccess);
+        }
+
+        public IDataResult<List<GetAdoptedAnimalsDto>> GetAdoptedAnimalsByAdopterId(int adopterId)
+        {
+            var animals = _animalDal.GetAdoptedAnimals(a => a.AdopterId == adopterId);
+            return new SuccessDataResult<List<GetAdoptedAnimalsDto>>(animals, Messages.GetAnimalListSuccess);
+        }
+
+        public IDataResult<List<AnimalDetailsDto>> GetAnimalsByShelterId(int id)
+        {
+            var animals = _animalDal.GetAllAnimalDetails(id);
+            return new SuccessDataResult<List<AnimalDetailsDto>>(animals, Messages.GetAnimalSuccess);
         }
     }
 

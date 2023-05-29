@@ -57,22 +57,9 @@ namespace Business.Concrete
             if (currentAdoption == null)
                 return new ErrorResult(Messages.AdoptionNotFound);
 
-            var propertyInfo = typeof(Adoption).GetProperties();
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(adoption);
-                bool isNullOrEmpty = propertyValue == null || (propertyValue is string && string.IsNullOrEmpty((string)propertyValue));
-                if (isNullOrEmpty)
-                {
-                    property.SetValue(currentAdoption, property.GetValue(currentAdoption));
-                }
-                else
-                {
-                    property.SetValue(currentAdoption, propertyValue);
-                }
-            }
+            
 
-            _adoptionDal.Update(currentAdoption);
+            _adoptionDal.Update(adoption);
             return new SuccessResult(Messages.UpdateAdoptionSuccess);
         }
     }

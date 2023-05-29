@@ -92,6 +92,17 @@ namespace WebApi.Controllers
             }
             return BadRequest(result);
         }
+
+        [HttpGet("getemployeesbyshelter/{id}")]
+        public IActionResult GetEmployeesByShelter(int id)
+        {
+            var result = _employeeService.GetEmployeesByShelter(id);
+            if (result.Success)
+            {
+                return Ok(result);
+            }
+            return BadRequest(result);
+        }
     }
 
 }

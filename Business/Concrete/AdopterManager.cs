@@ -62,22 +62,9 @@ namespace Business.Concrete
             if (currentAdopter == null)
                 return new ErrorResult(Messages.AdopterNotFound);
 
-            var propertyInfo = typeof(Adopter).GetProperties();
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(adopter);
-                bool isNullOrEmpty = propertyValue == null || (propertyValue is string && string.IsNullOrEmpty((string)propertyValue));
-                if (isNullOrEmpty)
-                {
-                    property.SetValue(currentAdopter, property.GetValue(currentAdopter));
-                }
-                else
-                {
-                    property.SetValue(currentAdopter, propertyValue);
-                }
-            }
+            
 
-            _adopterDal.Update(currentAdopter);
+            _adopterDal.Update(adopter);
             return new SuccessResult(Messages.UpdateAdopterSuccess);
         }
     }

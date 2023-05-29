@@ -63,25 +63,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.PositionNotFound);
             }
 
-            Position newPosition = new Position();
-            var propertyInfo = typeof(Position).GetProperties();
-
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(position);
-                if (propertyValue is null || propertyValue.Equals(0) || propertyValue.Equals((double)0) || propertyValue.Equals(new DateTime()))
-                {
-                    property.SetValue(newPosition, property.GetValue(currentPosition));
-                }
-                else
-                {
-                    property.SetValue(newPosition, property.GetValue(position));
-                }
-            }
-
-            newPosition.PositionId = currentPosition.PositionId; // Preserve the ID
-
-            _positionDal.Update(newPosition);
+            _positionDal.Update(position);
             return new SuccessResult(Messages.UpdatePositionSuccess);
         }
     }

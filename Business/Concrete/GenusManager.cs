@@ -63,25 +63,7 @@ namespace Business.Concrete
                 return new ErrorResult(Messages.GenusNotFound);
             }
 
-            Genus newGenus = new Genus();
-            var propertyInfo = typeof(Genus).GetProperties();
-
-            foreach (var property in propertyInfo)
-            {
-                var propertyValue = property.GetValue(genus);
-                if (propertyValue is null || propertyValue.Equals(0) || propertyValue.Equals((double)0) || propertyValue.Equals(new DateTime()))
-                {
-                    property.SetValue(newGenus, property.GetValue(currentGenus));
-                }
-                else
-                {
-                    property.SetValue(newGenus, property.GetValue(genus));
-                }
-            }
-
-            newGenus.GenusId = currentGenus.GenusId; // Preserve the ID
-
-            _genusDal.Update(newGenus);
+            _genusDal.Update(genus);
             return new SuccessResult(Messages.UpdateGenusSuccess);
         }
     }

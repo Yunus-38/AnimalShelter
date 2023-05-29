@@ -13,5 +13,6 @@ namespace Entities.Concrete
         public int CityId { get; set; }
         public string ShelterName { get; set; }
         public string ShelterAddress { get; set; }
+        public int Capacity { get; set; } = 100;
     }
 }
